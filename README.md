@@ -40,10 +40,10 @@ It look like this :
       function startApp(){
 
         var quilt = {
-          width:8192,
-          height:8192,
-          nbX:8,
-          nbY:8
+          width:4096,
+          height:4096,
+          nbX:7,
+          nbY:7
         }
 
         var ffmpegConfig = {
@@ -84,6 +84,9 @@ It look like this :
 
       }
 '''
+
+If you want to record a quilt-video, just set the variable "createQuiltVideo" to true. 
+If you want to create a quilt-video bigger than 4096x4096, you must use "libx265" as  encoderType. 
 
 Launch holoplayToMp4.exe to launch the capture and press F12 to open the console
 
