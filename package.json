@@ -1,0 +1,38 @@
+{
+  "name": "HoloplayToMP4",
+  "main": "src/index.html",
+  "description": "holoplayToMP4",
+  "version": "0.1",
+  "window": {
+    "title": "holoplayToMP4",
+    "show": true,
+    "icon": "icone.png",
+    "width": 700,
+    "height": 700,
+    "resizable": false,
+    "position": "center",
+    "toolbar": false
+  },
+  
+  "single-instance": false,
+  "repositories": {
+    "type": "git",
+    "url": "git+https://github.com/tlecoz/holoplayToMp4.git"
+  },
+  "author": "",
+  "license": "wtfpl",
+  "bugs": {
+    "url": "https://github.com/tlecoz/holoplayToMp4/issues"
+  },
+  "homepage": "https://github.com/tlecoz/holoplayToMp4#readme",
+  "contributors": [
+    {
+      "name": "Thomas Le Coz",
+      "email": "fanthomas.lecoz@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "fs-extra": "^4.0.2",
+    "webgl-to-img-stream": "^1.0.0"
+  }
+}

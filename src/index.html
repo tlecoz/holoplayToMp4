@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>CanvasToMP4</title>
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script type="application/javascript" src="build/EventDispatcher.js"></script>
+    <script type="application/javascript" src="build/three.min.js"></script>
+    <script type="application/javascript" src="build/gl-matrix.js"></script>
+
+    <script type="application/javascript" src="build/canvasToMp4/FFmpegCommand.js"></script>
+    <script type="application/javascript" src="build/canvasToMp4/FFMpegCaptureManager.js"></script>
+
+    <script type="application/javascript" src="build/holoplay/HoloAppType.js"></script>
+    <script type="application/javascript" src="build/holoplay/HoloMultiViewRenderer.js"></script>
+    <script type="application/javascript" src="build/holoplay/HoloScreen.js"></script>
+    <script type="application/javascript" src="build/holoplay/HoloEppRom.js"></script>
+    <script type="application/javascript" src="build/holoplay/Holoplay.js"></script>
+    <script type="application/javascript" src="build/holoplay/HoloplayApp.js"></script>
+
+
+
+    <script type="text/javascript" src="build/Test.js"></script>
+
+    <script type="text/javascript">
+
+      var demo;
+      var encoder;
+
+      function startApp(){
+
+        var quilt = {
+          width:4096,
+          height:4096,
+          nbX:8,
+          nbY:8
+        }
+
+        var ffmpegConfig = {
+          width:2560,
+          height:1600,
+          fps:60,
+          durationInSeconds:1,
+          fileName:"videos/output.mp4",
+          encoderType:"h264_nvenc",
+          verticalFlip:true
+        }
+
+
+        var createQuiltVideo = false
+        var mode = HoloAppType.HOLOGRAM_VIDEO_ENCODER;
+
+        if(createQuiltVideo){
+          ffmpegConfig.width = quilt.width;
+          ffmpegConfig.height = quilt.height;
+          mode = HoloAppType.QUILT_VIDEO_ENCODER;
+        }
+
+        demo = new Test(quilt,mode);
+
+        demo.nextFrame = function(pct){
+          this.fieldOfVision = 35;
+          this.parallaxRatio = 1;
+          this.update();
+        }
+
+        //---------------
+
+        encoder = new FFMpegCaptureManager(new FFmpegCommand(ffmpegConfig));
+        encoder.addEventListener(FFMpegCaptureManager.FILE_CREATION_COMPLETED,function(e){ console.log("FILE CREATED") })
+        encoder.addEventListener(FFMpegCaptureManager.FRAME_ENCODED,function(e){ console.log("encodingProgress = ",encoder.encodingProgress)})
+
+        demo.onReady = function(){  encoder.start(demo,"nextFrame")  }
+
+      }
+
+    </script>
+</head>
+<body onload="startApp()">
+
+</body>
+</html>
