@@ -41,7 +41,7 @@ class FFmpegCommand {
             this.values = ("-hwaccel cuvid -y -f rawvideo -r " + fps + " -s " + width + "x" + height + " -pix_fmt rgb0 -i - -c:v libx265 " + vflip + " -pix_fmt yuv420p -profile:v main -preset slow -crf 22 " + fileName).split("  ").join(" ").split(" ");
         }
         else if (encoderType == "h264_nvenc") {
-            this.values = ("-hwaccel cuvid -y -f rawvideo -r " + fps + " -s " + width + "x" + height + " -pix_fmt rgb0 -i - -c:v h264_nvenc " + vflip + " -pixel_format yuv420p -rc constqp -preset slow -profile:v baseline -crf 22 " + fileName).split("  ").join(" ").split(" ");
+            this.values = ("-hwaccel cuvid -y -f rawvideo -r " + fps + " -s " + width + "x" + height + " -pix_fmt rgb0 -i - -c:v h264_nvenc " + vflip + " -pixel_format yuv420p -rc constqp -preset slow -profile:v baseline -crf 18 " + fileName).split("  ").join(" ").split(" ");
         }
         else if (encoderType == "png") {
             this.values = ("-hwaccel cuvid -y -f rawvideo -r " + fps + " -s " + width + "x" + height + " -pix_fmt rgb0 -i - " + vflip + " " + fileName).split("  ").join(" ").split(" ");

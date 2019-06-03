@@ -19,11 +19,15 @@
     <script type="application/javascript" src="build/holoplay/HoloEppRom.js"></script>
     <script type="application/javascript" src="build/holoplay/Holoplay.js"></script>
     <script type="application/javascript" src="build/holoplay/HoloplayApp.js"></script>
-
-
-
     <script type="text/javascript" src="build/Test.js"></script>
 
+    <style>
+    *{
+      padding:0;
+      margin:0;
+      overflow: hidden;
+    }
+    </style>
     <script type="text/javascript">
 
       var demo;
@@ -32,8 +36,8 @@
       function startApp(){
 
         var quilt = {
-          width:4096,
-          height:4096,
+          width:16384,
+          height:16384,
           nbX:8,
           nbY:8
         }
@@ -61,18 +65,55 @@
         demo = new Test(quilt,mode);
 
         demo.nextFrame = function(pct){
-          this.fieldOfVision = 35;
-          this.parallaxRatio = 1;
+          this.fieldOfVision = 60;
+          this.parallaxRatio = 0.5;
           this.update();
         }
 
         //---------------
+        var progressBar = document.createElement("canvas");
+        document.body.appendChild(progressBar);
+        var ctx = progressBar.getContext("2d");
+        var w = progressBar.width = window.innerWidth;
+        var h = progressBar.height = window.innerHeight;
+        ctx.fillStyle = "#000000";
+        ctx.font = "20px Arial";
+        ctx.fillText("capture started - please wait... -",20,20);
+
+        function updateProgressBar(){
+          ctx.clearRect(0,0,w,h);
+          ctx.fillStyle = "#66de66";
+          ctx.fillRect(0,0,w * encoder.encodingProgress,h);
+        }
+
 
         encoder = new FFMpegCaptureManager(new FFmpegCommand(ffmpegConfig));
-        encoder.addEventListener(FFMpegCaptureManager.FILE_CREATION_COMPLETED,function(e){ console.log("FILE CREATED") })
-        encoder.addEventListener(FFMpegCaptureManager.FRAME_ENCODED,function(e){ console.log("encodingProgress = ",encoder.encodingProgress)})
+        encoder.addEventListener(FFMpegCaptureManager.FRAME_CAPTURED,function(e){
+           //document.body.innerText += "Frame capture : "+encoder.nbFrameCaptured+" / "+encoder.nbFrameTotal+"\n";
+           updateProgressBar();
+         })
+        encoder.addEventListener(FFMpegCaptureManager.FILE_CREATION_COMPLETED,function(e){
+           console.log("FILE CREATED")
+           ctx.clearRect(0,0,w,h);
+           ctx.fillStyle = "#000000";
+           ctx.font = "20px Arial";
+           ctx.fillText("File created",20,20);
+           //document.body.innerText += "FILE CREATED !";
+         })
+        encoder.addEventListener(FFMpegCaptureManager.FRAME_ENCODED,function(e){
+          console.log("encodingProgress = ",encoder.encodingProgress)
+          updateProgressBar();
+          //document.body.innerText += "encoding progress = "+Math.floor(encoder.encodingProgress * 100)+" % \n";
+        })
 
-        demo.onReady = function(){  encoder.start(demo,"nextFrame")  }
+
+        demo.onReady = function(){
+
+
+          //document.body.innerText += "Connected to the looking glass ! \n";
+          //document.body.innerText += "Encoding start.  \n";
+          encoder.start(demo,"nextFrame")
+        }
 
       }
 

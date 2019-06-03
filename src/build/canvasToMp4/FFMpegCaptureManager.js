@@ -5,7 +5,7 @@ class FFMpegCaptureManager extends EventDispatcher {
         this.started = false;
         this.completed = false;
         this.captureMode = true;
-        this.dif = 40;
+        this.dif = 20;
         this.init(command);
     }
     init(command) {
@@ -90,6 +90,9 @@ class FFMpegCaptureManager extends EventDispatcher {
     }
     get encodingProgress() { return this.frameEncoded / this.frameTotal; }
     end() { this.process.stdin.end(); }
+    get nbFrameCaptured() { return this.frameCaptured; }
+    get nbFrameEncoded() { return this.frameEncoded; }
+    get nbFrameTotal() { return this.frameTotal; }
     capture(ctx) {
         if (!this.process)
             return;

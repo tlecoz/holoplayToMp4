@@ -2,6 +2,12 @@ class HoloplayApp {
     constructor(quilt, holoAppType = HoloAppType.HOLOGRAM) {
         var fov = 35;
         this.scene = new THREE.Scene();
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        if (holoAppType == HoloAppType.HOLOGRAM_VIDEO_ENCODER) {
+            w = 2560;
+            h = 1600;
+        }
         this.camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 1000000);
         this.camera.position.set(0, 0, this.camera.getFocalLength());
         console.log(this.camera.getFocalLength());
@@ -10,7 +16,8 @@ class HoloplayApp {
         this.renderer.setClearAlpha(0);
         this.renderer.setClearColor(new THREE.Color(0), 0);
         this.renderer.autoClear = true;
-        document.body.appendChild(this.renderer.domElement);
+        if (holoAppType == HoloAppType.CLASSIC_RENDERING || holoAppType == HoloAppType.HOLOGRAM)
+            document.body.appendChild(this.renderer.domElement);
         var th = this;
         window.addEventListener("resize", function () { th.holoplay.onResize(); });
         this.holoplay = new HoloPlay(this.scene, this.camera, this.renderer, holoAppType);

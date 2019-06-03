@@ -9,7 +9,7 @@ class HoloPlay {
   public mode:string;
   public width:number;
   public height:number;
-  
+
   protected finalRenderScene:THREE.Scene;
   protected finalRenderCamera:THREE.Camera;
 
@@ -55,7 +55,7 @@ class HoloPlay {
     this.quiltPlane = new THREE.Mesh(new THREE.PlaneGeometry(1,1),new THREE.MeshBasicMaterial({map:this.multiViewRenderer.texture}))
     this.quiltPlane.material.needsUpdate = true;
 
-    console.log(this.multiViewRenderer.width,this.multiViewRenderer.height)
+    //console.log(this.multiViewRenderer.width,this.multiViewRenderer.height)
 
     this.finalRenderScene.add(this.finalRenderCamera);
     this.finalRenderScene.add(this.screen);
@@ -126,6 +126,8 @@ class HoloPlay {
     this.width = w;
     this.height = h;
 
+    console.log(w,h)
+
     this.renderer.setSize(w,h);
     this.camera.aspect = w/h;
     this.camera.updateProjectionMatrix();
@@ -147,7 +149,7 @@ class HoloPlay {
 
     }else{
 
-      if(this.mode == HoloAppType.QUILT_VIDEO_ENCODER) this.renderer.setSize(this.width,this.height);
+      this.renderer.setSize(this.width,this.height);
 
       this.multiViewRenderer.captureViews();
 

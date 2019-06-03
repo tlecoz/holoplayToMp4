@@ -93,7 +93,7 @@ class HoloScreen extends THREE.Mesh {
     const holo:HoloPlay = this.holoplay;
     if(!holo.ready) return;
 
-
+    console.log(holo.width," # ",holo.height)
     var aspect = holo.width / holo.height;
     var screenInches = (holo.width /  holo.DPI)   ;
     var newPitch = holo.pitch * screenInches ;

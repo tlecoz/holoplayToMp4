@@ -83,7 +83,7 @@ class FFMpegCaptureManager extends EventDispatcher {
 
 
   private nextFrame:string;
-  private dif:number = 40;
+  private dif:number = 20;
   private target:{ctx:CanvasRenderingContext2D|WebGLRenderingContext};
   private targetContext:CanvasRenderingContext2D|WebGLRenderingContext;
 
@@ -142,6 +142,9 @@ class FFMpegCaptureManager extends EventDispatcher {
   public get encodingProgress():number{ return this.frameEncoded / this.frameTotal; }
   public end():void{  this.process.stdin.end(); }
 
+  public get nbFrameCaptured():number{return this.frameCaptured;}
+  public get nbFrameEncoded():number{return this.frameEncoded;}
+  public get nbFrameTotal():number{return this.frameTotal;}
 
   public capture(ctx:CanvasRenderingContext2D|WebGLRenderingContext):boolean{
     if(!this.process ) return;

@@ -7,13 +7,13 @@
     "title": "holoplayToMP4",
     "show": true,
     "icon": "icone.png",
-    "width": 700,
-    "height": 700,
+    "width": 500,
+    "height": 50,
     "resizable": false,
     "position": "center",
     "toolbar": false
   },
-  
+
   "single-instance": false,
   "repositories": {
     "type": "git",

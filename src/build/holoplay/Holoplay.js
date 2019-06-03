@@ -21,7 +21,6 @@ class HoloPlay {
         this.screen = new HoloScreen(this);
         this.quiltPlane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), new THREE.MeshBasicMaterial({ map: this.multiViewRenderer.texture }));
         this.quiltPlane.material.needsUpdate = true;
-        console.log(this.multiViewRenderer.width, this.multiViewRenderer.height);
         this.finalRenderScene.add(this.finalRenderCamera);
         this.finalRenderScene.add(this.screen);
         this.finalRenderScene.add(this.quiltPlane);
@@ -77,6 +76,7 @@ class HoloPlay {
         }
         this.width = w;
         this.height = h;
+        console.log(w, h);
         this.renderer.setSize(w, h);
         this.camera.aspect = w / h;
         this.camera.updateProjectionMatrix();
@@ -92,8 +92,7 @@ class HoloPlay {
             this.renderer.render(this.scene, this.camera);
         }
         else {
-            if (this.mode == HoloAppType.QUILT_VIDEO_ENCODER)
-                this.renderer.setSize(this.width, this.height);
+            this.renderer.setSize(this.width, this.height);
             this.multiViewRenderer.captureViews();
             if (this.mode == HoloAppType.HOLOGRAM || this.mode == HoloAppType.HOLOGRAM_VIDEO_ENCODER) {
                 if (document["fullscreen"] && this.useBorderInFullscreen && window.innerWidth == 2560 && window.innerHeight == 1600) {
