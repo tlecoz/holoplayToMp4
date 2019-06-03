@@ -23,7 +23,7 @@ In order to work with the looking glass, the scene must be rendered many times a
     Because the hologram is not pre-processed, the video will be usable with every looking glass
     
 
- Be aware that the video file will be huge (it's a 2560x1600 video at 60 fps with a good quality). 
+ Be aware that the video file will be huge. 
 
 
 The files of your demo must be located in the "src" folder. 
