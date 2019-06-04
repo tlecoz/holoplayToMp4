@@ -21,6 +21,8 @@ class HoloplayApp {
       h = 1600;
     }
 
+
+
     this.camera = new THREE.PerspectiveCamera(fov, window.innerWidth/window.innerHeight, 1, 1000000);
     this.camera.position.set(0,0,this.camera.getFocalLength());
     console.log(this.camera.getFocalLength())

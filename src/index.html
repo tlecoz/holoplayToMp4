@@ -36,10 +36,10 @@
       function startApp(){
 
         var quilt = {
-          width:16384,
-          height:16384,
-          nbX:8,
-          nbY:8
+          width:2048,
+          height:2048,
+          nbX:6,
+          nbY:6
         }
 
         var ffmpegConfig = {
@@ -53,13 +53,18 @@
         }
 
 
-        var createQuiltVideo = false
-        var mode = HoloAppType.HOLOGRAM_VIDEO_ENCODER;
+        var createQuiltVideo = true
+        var mode;
 
         if(createQuiltVideo){
+          mode = HoloAppType.QUILT_VIDEO_ENCODER;
           ffmpegConfig.width = quilt.width;
           ffmpegConfig.height = quilt.height;
-          mode = HoloAppType.QUILT_VIDEO_ENCODER;
+
+          var t = ffmpegConfig.fileName.split(".");
+          ffmpegConfig.fileName = t[0]+"_"+quilt.nbX+"_"+quilt.nbY+"_"+quilt.width+"_"+quilt.height+"."+t[1];
+        }else{
+          mode = HoloAppType.HOLOGRAM_VIDEO_ENCODER;
         }
 
         demo = new Test(quilt,mode);

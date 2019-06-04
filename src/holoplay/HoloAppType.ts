@@ -38,4 +38,5 @@ class HoloAppType {
   */
   public static CLASSIC_RENDERING:string = "CLASSIC_RENDERING";
 
+
 }
